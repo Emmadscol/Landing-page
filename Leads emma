@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emma | Agencia de Marketing Estratégico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'emma-black': '#000000',
+                        'emma-gray': '#2C2C2C',
+                        'emma-magenta': '#FF0066',
+                        'emma-blue': '#00CCFF',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #000000 0%, #1A1A1A 100%);
+        }
+        
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: scale(1.02);
+        }
+        
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 102, 0.3);
+        }
+        
+        .service-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .service-accordion-content.active {
+            max-height: 500px;
+        }
+        
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 204, 255, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(0, 204, 255, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 204, 255, 0);
+            }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-white">
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-black bg-opacity-95 text-white">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="#" class="text-2xl font-bold tracking-tighter">
+                    <span class="text-emma-magenta">E</span>mma
+                </a>
+            </div>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="#servicios" class="hover:text-emma-magenta transition-colors">Servicios</a>
+                <a href="#testimonios" class="hover:text-emma-magenta transition-colors">Testimonios</a>
+                <a href="#contacto" class="hover:text-emma-magenta transition-colors">Contacto</a>
+            </div>
+            
+            <div>
+                <a href="#contacto" class="hidden md:inline-block px-5 py-2 bg-emma-magenta text-white rounded-full hover:bg-opacity-90 transition-all btn-hover">
+                    Agenda tu diagnóstico
+                </a>
+                <button class="md:hidden text-white focus:outline-none" id="mobile-menu-button">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-emma-black" id="mobile-menu">
+            <div class="px-4 py-3 space-y-3">
+                <a href="#servicios" class="block hover:text-emma-magenta transition-colors">Servicios</a>
+                <a href="#testimonios" class="block hover:text-emma-magenta transition-colors">Testimonios</a>
+                <a href="#contacto" class="block hover:text-emma-magenta transition-colors">Contacto</a>
+                <a href="#contacto" class="inline-block px-5 py-2 bg-emma-magenta text-white rounded-full hover:bg-opacity-90 transition-all">
+                    Agenda tu diagnóstico
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg pt-32 pb-20 md:pt-40 md:pb-32 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+                <defs>
+                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)" />
+            </svg>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                        Estrategia, creatividad y <span class="text-emma-magenta">resultados reales</span> para tu marca
+                    </h1>
+                    <p class="text-xl md:text-2xl mb-8 text-gray-300">
+                        Expertos en marketing digital 360 que convierten ideas en crecimiento.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#contacto" class="px-8 py-4 bg-emma-magenta text-white rounded-full text-center font-medium hover:bg-opacity-90 transition-all btn-hover">
+                            Agenda tu diagnóstico gratuito
+                        </a>
+                        <a href="#servicios" class="px-8 py-4 border border-white text-white rounded-full text-center font-medium hover:bg-white hover:bg-opacity-10 transition-all">
+                            Conoce nuestros servicios
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative">
+                        <svg class="w-full h-auto max-w-lg" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="50" y="50" width="400" height="300" rx="20" fill="#1A1A1A" stroke="#FF0066" stroke-width="2"/>
+                            <circle cx="250" cy="120" r="40" fill="#FF0066" opacity="0.8"/>
+                            <rect x="100" y="180" width="300" height="20" rx="10" fill="#00CCFF" opacity="0.8"/>
+                            <rect x="100" y="220" width="200" height="20" rx="10" fill="white" opacity="0.6"/>
+                            <rect x="100" y="260" width="250" height="20" rx="10" fill="white" opacity="0.6"/>
+                            <rect x="100" y="300" width="150" height="20" rx="10" fill="#00CCFF" opacity="0.8"/>
+                            <circle cx="400" cy="80" r="15" fill="#00CCFF"/>
+                            <circle cx="400" cy="80" r="7" fill="#1A1A1A"/>
+                        </svg>
+                        
+                        <div class="absolute -bottom-10 -right-10 bg-emma-blue rounded-full w-20 h-20 flex items-center justify-center text-white text-4xl animate-bounce">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beneficios Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="bg-gray-50 p-8 rounded-2xl text-center hover:shadow-lg transition-all">
+                    <div class="w-16 h-16 bg-emma-magenta bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-lightbulb text-2xl text-emma-magenta"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Estrategia a la medida</h3>
+                    <p class="text-gray-600">Desarrollamos planes personalizados que se adaptan perfectamente a tus objetivos de negocio y necesidades específicas.</p>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-2xl text-center hover:shadow-lg transition-all">
+                    <div class="w-16 h-16 bg-emma-blue bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-rocket text-2xl text-emma-blue"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Ejecución con resultados</h3>
+                    <p class="text-gray-600">No solo planificamos, implementamos estrategias que generan métricas positivas y crecimiento tangible para tu marca.</p>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-2xl text-center hover:shadow-lg transition-all">
+                    <div class="w-16 h-16 bg-emma-magenta bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-handshake text-2xl text-emma-magenta"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Acompañamiento experto</h3>
+                    <p class="text-gray-600">Te guiamos en cada paso del proceso con un equipo cercano y profesional que se convierte en una extensión de tu negocio.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios Section -->
+    <section id="servicios" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">¿Qué hacemos en <span class="text-emma-magenta">Emma</span>?</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Ofrecemos soluciones integrales de marketing digital para impulsar tu marca al siguiente nivel.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Servicio 1 -->
+                <div class="service-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                    <div class="p-6">
+                        <div class="w-14 h-14 bg-emma-magenta bg-opacity-10 rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-chart-pie text-2xl text-emma-magenta"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Consultoría y estrategia digital</h3>
+                        <p class="text-gray-600 mb-4">Análisis profundo y planificación estratégica para alcanzar tus objetivos de negocio.</p>
+                        <button class="service-accordion-toggle text-emma-magenta font-medium flex items-center">
+                            Ver más <i class="fas fa-chevron-down ml-2 text-sm transition-transform"></i>
+                        </button>
+                        <div class="service-accordion-content mt-4 text-gray-600">
+                            <ul class="space-y-2">
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Auditoría digital completa</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Planificación estratégica</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Análisis de competencia</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Definición de KPIs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Servicio 2 -->
+                <div class="service-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                    <div class="p-6">
+                        <div class="w-14 h-14 bg-emma-blue bg-opacity-10 rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-hashtag text-2xl text-emma-blue"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Gestión de redes y contenido</h3>
+                        <p class="text-gray-600 mb-4">Creación y gestión de contenido relevante que conecta con tu audiencia.</p>
+                        <button class="service-accordion-toggle text-emma-magenta font-medium flex items-center">
+                            Ver más <i class="fas fa-chevron-down ml-2 text-sm transition-transform"></i>
+                        </button>
+                        <div class="service-accordion-content mt-4 text-gray-600">
+                            <ul class="space-y-2">
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Estrategia de contenidos</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Community management</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Calendario editorial</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Reportes de desempeño</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Servicio 3 -->
+                <div class="service-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                    <div class="p-6">
+                        <div class="w-14 h-14 bg-emma-magenta bg-opacity-10 rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-laptop-code text-2xl text-emma-magenta"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Diseño y desarrollo web</h3>
+                        <p class="text-gray-600 mb-4">Sitios web atractivos, funcionales y optimizados para convertir visitantes en clientes.</p>
+                        <button class="service-accordion-toggle text-emma-magenta font-medium flex items-center">
+                            Ver más <i class="fas fa-chevron-down ml-2 text-sm transition-transform"></i>
+                        </button>
+                        <div class="service-accordion-content mt-4 text-gray-600">
+                            <ul class="space-y-2">
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Diseño UX/UI</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Desarrollo responsive</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Optimización SEO</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Mantenimiento web</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Servicio 4 -->
+                <div class="service-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                    <div class="p-6">
+                        <div class="w-14 h-14 bg-emma-blue bg-opacity-10 rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-ad text-2xl text-emma-blue"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Publicidad y pauta digital</h3>
+                        <p class="text-gray-600 mb-4">Campañas publicitarias efectivas en Meta, Google Ads y otras plataformas.</p>
+                        <button class="service-accordion-toggle text-emma-magenta font-medium flex items-center">
+                            Ver más <i class="fas fa-chevron-down ml-2 text-sm transition-transform"></i>
+                        </button>
+                        <div class="service-accordion-content mt-4 text-gray-600">
+                            <ul class="space-y-2">
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Facebook & Instagram Ads</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Google Ads</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> LinkedIn Ads</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Optimización de campañas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Servicio 5 -->
+                <div class="service-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                    <div class="p-6">
+                        <div class="w-14 h-14 bg-emma-magenta bg-opacity-10 rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-shopping-cart text-2xl text-emma-magenta"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Ecommerce y embudos</h3>
+                        <p class="text-gray-600 mb-4">Estrategias de conversión para maximizar ventas y optimizar el customer journey.</p>
+                        <button class="service-accordion-toggle text-emma-magenta font-medium flex items-center">
+                            Ver más <i class="fas fa-chevron-down ml-2 text-sm transition-transform"></i>
+                        </button>
+                        <div class="service-accordion-content mt-4 text-gray-600">
+                            <ul class="space-y-2">
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Desarrollo de ecommerce</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Embudos de conversión</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Email marketing</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Optimización de tasas de conversión</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Servicio 6 -->
+                <div class="service-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                    <div class="p-6">
+                        <div class="w-14 h-14 bg-emma-blue bg-opacity-10 rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-video text-2xl text-emma-blue"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Producción audiovisual</h3>
+                        <p class="text-gray-600 mb-4">Contenido visual de alto impacto para conectar emocionalmente con tu audiencia.</p>
+                        <button class="service-accordion-toggle text-emma-magenta font-medium flex items-center">
+                            Ver más <i class="fas fa-chevron-down ml-2 text-sm transition-transform"></i>
+                        </button>
+                        <div class="service-accordion-content mt-4 text-gray-600">
+                            <ul class="space-y-2">
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Videos corporativos</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Contenido para redes</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Fotografía profesional</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Motion graphics</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Servicio 7 -->
+                <div class="service-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                    <div class="p-6">
+                        <div class="w-14 h-14 bg-emma-magenta bg-opacity-10 rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-chart-bar text-2xl text-emma-magenta"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Monitoreo y analítica</h3>
+                        <p class="text-gray-600 mb-4">Seguimiento de métricas y análisis de datos para optimizar estrategias.</p>
+                        <button class="service-accordion-toggle text-emma-magenta font-medium flex items-center">
+                            Ver más <i class="fas fa-chevron-down ml-2 text-sm transition-transform"></i>
+                        </button>
+                        <div class="service-accordion-content mt-4 text-gray-600">
+                            <ul class="space-y-2">
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Dashboards personalizados</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Informes periódicos</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Análisis de competencia</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Recomendaciones estratégicas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Servicio 8 -->
+                <div class="service-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                    <div class="p-6">
+                        <div class="w-14 h-14 bg-emma-blue bg-opacity-10 rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-users text-2xl text-emma-blue"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Alianzas e influencers</h3>
+                        <p class="text-gray-600 mb-4">Estrategias de colaboración con creadores de contenido y marcas afines.</p>
+                        <button class="service-accordion-toggle text-emma-magenta font-medium flex items-center">
+                            Ver más <i class="fas fa-chevron-down ml-2 text-sm transition-transform"></i>
+                        </button>
+                        <div class="service-accordion-content mt-4 text-gray-600">
+                            <ul class="space-y-2">
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Selección de influencers</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Gestión de campañas</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Medición de resultados</li>
+                                <li><i class="fas fa-check text-emma-blue mr-2"></i> Alianzas estratégicas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios Section -->
+    <section id="testimonios" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Lo que dicen nuestros clientes</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Más de 20 marcas han confiado en Emma para impulsar su presencia digital.</p>
+            </div>
+            
+            <div class="testimonial-slider relative">
+                <div class="flex overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide space-x-6" id="testimonial-container">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card min-w-[300px] md:min-w-[400px] bg-gray-50 p-8 rounded-2xl snap-center">
+                        <div class="flex items-center mb-6">
+                            <div class="text-emma-magenta">
+                                <i class="fas fa-quote-left text-3xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-6">
+                            "El equipo de Emma transformó nuestra presencia digital por completo. Nuestras conversiones aumentaron un 150% en solo tres meses de trabajo conjunto."
+                        </p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-emma-magenta rounded-full flex items-center justify-center text-white font-bold text-xl">
+                                AM
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-bold">Ana Martínez</h4>
+                                <p class="text-gray-600 text-sm">CEO, Naturalia Cosmetics</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card min-w-[300px] md:min-w-[400px] bg-gray-50 p-8 rounded-2xl snap-center">
+                        <div class="flex items-center mb-6">
+                            <div class="text-emma-blue">
+                                <i class="fas fa-quote-left text-3xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-6">
+                            "La estrategia de contenidos que desarrolló Emma para nuestra marca nos ayudó a posicionarnos como líderes en nuestro sector. Su enfoque creativo y analítico es excepcional."
+                        </p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-emma-blue rounded-full flex items-center justify-center text-white font-bold text-xl">
+                                JR
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-bold">Javier Rodríguez</h4>
+                                <p class="text-gray-600 text-sm">Director de Marketing, TechSolutions</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card min-w-[300px] md:min-w-[400px] bg-gray-50 p-8 rounded-2xl snap-center">
+                        <div class="flex items-center mb-6">
+                            <div class="text-emma-magenta">
+                                <i class="fas fa-quote-left text-3xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-6">
+                            "Desde que trabajamos con Emma, nuestras campañas de Google Ads han mejorado drásticamente. El ROI se ha duplicado y el costo por adquisición ha bajado un 40%."
+                        </p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-emma-magenta rounded-full flex items-center justify-center text-white font-bold text-xl">
+                                CL
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-bold">Carolina López</h4>
+                                <p class="text-gray-600 text-sm">Fundadora, Estilo Urbano</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 4 -->
+                    <div class="testimonial-card min-w-[300px] md:min-w-[400px] bg-gray-50 p-8 rounded-2xl snap-center">
+                        <div class="flex items-center mb-6">
+                            <div class="text-emma-blue">
+                                <i class="fas fa-quote-left text-3xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-6">
+                            "Lo que más valoramos de Emma es su capacidad para entender nuestro negocio y traducirlo en estrategias digitales efectivas. Son un verdadero socio estratégico."
+                        </p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-emma-blue rounded-full flex items-center justify-center text-white font-bold text-xl">
+                                MG
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-bold">Miguel González</h4>
+                                <p class="text-gray-600 text-sm">Director General, Grupo Inmobiliario Habitat</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center mt-8 space-x-2">
+                    <button class="testimonial-dot w-3 h-3 rounded-full bg-gray-300 focus:outline-none active"></button>
+                    <button class="testimonial-dot w-3 h-3 rounded-full bg-gray-300 focus:outline-none"></button>
+                    <button class="testimonial-dot w-3 h-3 rounded-full bg-gray-300 focus:outline-none"></button>
+                    <button class="testimonial-dot w-3 h-3 rounded-full bg-gray-300 focus:outline-none"></button>
+                </div>
+                
+                <button class="absolute top-1/2 -left-4 transform -translate-y-1/2 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-md focus:outline-none hidden md:flex" id="prev-testimonial">
+                    <i class="fas fa-chevron-left text-emma-magenta"></i>
+                </button>
+                
+                <button class="absolute top-1/2 -right-4 transform -translate-y-1/2 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-md focus:outline-none hidden md:flex" id="next-testimonial">
+                    <i class="fas fa-chevron-right text-emma-magenta"></i>
+                </button>
+            </div>
+            
+            <div class="mt-16 text-center">
+                <p class="text-xl font-medium mb-8">Algunas de las marcas que confían en nosotros</p>
+                <div class="flex flex-wrap justify-center gap-8 items-center opacity-70">
+                    <div class="w-32 h-12 flex items-center justify-center">
+                        <svg class="w-full h-8" viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="30" fill="none"/>
+                            <text x="50" y="20" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle" fill="#333">BRAND 1</text>
+                        </svg>
+                    </div>
+                    <div class="w-32 h-12 flex items-center justify-center">
+                        <svg class="w-full h-8" viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="30" fill="none"/>
+                            <text x="50" y="20" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle" fill="#333">BRAND 2</text>
+                        </svg>
+                    </div>
+                    <div class="w-32 h-12 flex items-center justify-center">
+                        <svg class="w-full h-8" viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="30" fill="none"/>
+                            <text x="50" y="20" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle" fill="#333">BRAND 3</text>
+                        </svg>
+                    </div>
+                    <div class="w-32 h-12 flex items-center justify-center">
+                        <svg class="w-full h-8" viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="30" fill="none"/>
+                            <text x="50" y="20" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle" fill="#333">BRAND 4</text>
+                        </svg>
+                    </div>
+                    <div class="w-32 h-12 flex items-center justify-center">
+                        <svg class="w-full h-8" viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="30" fill="none"/>
+                            <text x="50" y="20" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle" fill="#333">BRAND 5</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Section -->
+    <section id="contacto" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row gap-12">
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">¿Quieres impulsar tu marca con nosotros?</h2>
+                    <p class="text-xl text-gray-600 mb-8">
+                        Completa el formulario y nuestro equipo se pondrá en contacto contigo para ofrecerte un diagnóstico gratuito de tu presencia digital.
+                    </p>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-sm mb-8">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-emma-magenta bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-envelope text-emma-magenta"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Email</h4>
+                                <p class="text-gray-600">contacto@emma-agency.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-emma-blue bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-phone text-emma-blue"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Teléfono</h4>
+                                <p class="text-gray-600">+34 91 123 45 67</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-emma-magenta bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-map-marker-alt text-emma-magenta"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Dirección</h4>
+                                <p class="text-gray-600">Calle Gran Vía 28, Madrid, España</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-emma-black rounded-full flex items-center justify-center text-white hover:bg-emma-magenta transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-emma-black rounded-full flex items-center justify-center text-white hover:bg-emma-magenta transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-emma-black rounded-full flex items-center justify-center text-white hover:bg-emma-magenta transition-colors">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <form class="bg-white p-8 rounded-2xl shadow-sm">
+                        <div class="mb-6">
+                            <label for="name" class="block text-gray-700 font-medium mb-2">Nombre completo</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emma-magenta" placeholder="Tu nombre">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="email" class="block text-gray-700 font-medium mb-2">Correo electrónico</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emma-magenta" placeholder="tu@email.com">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="company" class="block text-gray-700 font-medium mb-2">Empresa</label>
+                            <input type="text" id="company" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emma-magenta" placeholder="Nombre de tu empresa">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="service" class="block text-gray-700 font-medium mb-2">Servicio que te interesa</label>
+                            <select id="service" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emma-magenta appearance-none bg-white">
+                                <option value="" selected disabled>Selecciona un servicio</option>
+                                <option value="estrategia">Consultoría y estrategia digital</option>
+                                <option value="redes">Gestión de redes y contenido</option>
+                                <option value="web">Diseño y desarrollo web</option>
+                                <option value="ads">Publicidad y pauta digital</option>
+                                <option value="ecommerce">Ecommerce y embudos de conversión</option>
+                                <option value="audiovisual">Producción audiovisual</option>
+                                <option value="analitica">Monitoreo y analítica</option>
+                                <option value="influencers">Alianzas e influencers</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 font-medium mb-2">Mensaje</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emma-magenta" placeholder="Cuéntanos sobre tu proyecto o necesidad"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-emma-magenta text-white py-4 px-6 rounded-lg font-medium hover:bg-opacity-90 transition-all btn-hover">
+                            Solicita tu propuesta
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-emma-black text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">No somos solo una agencia, <span class="text-emma-magenta">somos tu equipo digital</span></h2>
+            <p class="text-xl mb-10 max-w-3xl mx-auto">
+                Únete a las marcas que ya están transformando su presencia digital con estrategias efectivas y resultados medibles.
+            </p>
+            <a href="#contacto" class="inline-block px-8 py-4 bg-emma-magenta text-white rounded-full font-medium hover:bg-opacity-90 transition-all btn-hover">
+                Empieza hoy con una reunión gratis
+            </a>
+            
+            <div class="mt-16">
+                <p class="text-gray-400 mb-4">Certificados y alianzas</p>
+                <div class="flex flex-wrap justify-center gap-8 items-center">
+                    <div class="w-24 h-12 bg-white bg-opacity-10 rounded-lg flex items-center justify-center">
+                        <svg class="w-16 h-6" viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="30" fill="none"/>
+                            <text x="50" y="20" font-family="Arial" font-size="10" font-weight="bold" text-anchor="middle" fill="white">GOOGLE PARTNER</text>
+                        </svg>
+                    </div>
+                    <div class="w-24 h-12 bg-white bg-opacity-10 rounded-lg flex items-center justify-center">
+                        <svg class="w-16 h-6" viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="30" fill="none"/>
+                            <text x="50" y="20" font-family="Arial" font-size="10" font-weight="bold" text-anchor="middle" fill="white">META PARTNER</text>
+                        </svg>
+                    </div>
+                    <div class="w-24 h-12 bg-white bg-opacity-10 rounded-lg flex items-center justify-center">
+                        <svg class="w-16 h-6" viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="30" fill="none"/>
+                            <text x="50" y="20" font-family="Arial" font-size="10" font-weight="bold" text-anchor="middle" fill="white">HUBSPOT</text>
+                        </svg>
+                    </div>
+                    <div class="w-24 h-12 bg-white bg-opacity-10 rounded-lg flex items-center justify-center">
+                        <svg class="w-16 h-6" viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="30" fill="none"/>
+                            <text x="50" y="20" font-family="Arial" font-size="10" font-weight="bold" text-anchor="middle" fill="white">SHOPIFY</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-emma-gray py-12 text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between">
+                <div class="mb-8 md:mb-0">
+                    <a href="#" class="text-2xl font-bold tracking-tighter mb-4 inline-block">
+                        <span class="text-emma-magenta">E</span>mma
+                    </a>
+                    <p class="text-gray-400 max-w-xs">
+                        Agencia de marketing estratégico especializada en soluciones digitales integrales para marcas con visión.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+                    <div>
+                        <h4 class="font-bold mb-4">Enlaces rápidos</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-emma-magenta transition-colors">Inicio</a></li>
+                            <li><a href="#servicios" class="text-gray-400 hover:text-emma-magenta transition-colors">Servicios</a></li>
+                            <li><a href="#testimonios" class="text-gray-400 hover:text-emma-magenta transition-colors">Testimonios</a></li>
+                            <li><a href="#contacto" class="text-gray-400 hover:text-emma-magenta transition-colors">Contacto</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold mb-4">Servicios</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#servicios" class="text-gray-400 hover:text-emma-magenta transition-colors">Estrategia digital</a></li>
+                            <li><a href="#servicios" class="text-gray-400 hover:text-emma-magenta transition-colors">Redes sociales</a></li>
+                            <li><a href="#servicios" class="text-gray-400 hover:text-emma-magenta transition-colors">Diseño web</a></li>
+                            <li><a href="#servicios" class="text-gray-400 hover:text-emma-magenta transition-colors">Publicidad digital</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold mb-4">Contacto</h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-center">
+                                <i class="fas fa-envelope text-emma-magenta mr-2"></i>
+                                <a href="mailto:contacto@emma-agency.com" class="text-gray-400 hover:text-emma-magenta transition-colors">contacto@emma-agency.com</a>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-phone text-emma-magenta mr-2"></i>
+                                <a href="tel:+34911234567" class="text-gray-400 hover:text-emma-magenta transition-colors">+34 91 123 45 67</a>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-emma-magenta mr-2"></i>
+                                <span class="text-gray-400">Calle Gran Vía 28, Madrid</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                    &copy; 2023 Emma Agency. Todos los derechos reservados.
+                </p>
+                
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-emma-magenta transition-colors">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-emma-magenta transition-colors">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-emma-magenta transition-colors">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/34911234567" class="floating-whatsapp bg-emma-blue text-white w-16 h-16 rounded-full flex items-center justify-center shadow-lg">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Service accordion functionality
+        const accordionToggles = document.querySelectorAll('.service-accordion-toggle');
+        
+        accordionToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const content = toggle.nextElementSibling;
+                const icon = toggle.querySelector('i');
+                
+                content.classList.toggle('active');
+                
+                if (content.classList.contains('active')) {
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    icon.style.transform = 'rotate(0)';
+                }
+            });
+        });
+        
+        // Testimonial slider functionality
+        const testimonialContainer = document.getElementById('testimonial-container');
+        const testimonials = testimonialContainer.querySelectorAll('.testimonial-card');
+        const prevButton = document.getElementById('prev-testimonial');
+        const nextButton = document.getElementById('next-testimonial');
+        const dots = document.querySelectorAll('.testimonial-dot');
+        
+        let currentIndex = 0;
+        
+        function updateSlider() {
+            const testimonialWidth = testimonials[0].offsetWidth + 24; // Width + gap
+            testimonialContainer.scrollTo({
+                left: currentIndex * testimonialWidth,
+                behavior: 'smooth'
+            });
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.add('bg-emma-magenta');
+                    dot.classList.remove('bg-gray-300');
+                } else {
+                    dot.classList.remove('bg-emma-magenta');
+                    dot.classList.add('bg-gray-300');
+                }
+            });
+        }
+        
+        nextButton.addEventListener('click', () => {
+            if (currentIndex < testimonials.length - 1) {
+                currentIndex++;
+                updateSlider();
+            }
+        });
+        
+        prevButton.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateSlider();
+            }
+        });
+        
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                updateSlider();
+            });
+        });
+        
+        // Form submission
+        const contactForm = document.querySelector('form');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const company = document.getElementById('company').value;
+            const service = document.getElementById('service').value;
+            const message = document.getElementById('message').value;
+            
+            // Validate form
+            if (!name || !email || !company || !service || !message) {
+                alert('Por favor, completa todos los campos del formulario.');
+                return;
+            }
+            
+            // Simulate form submission
+            contactForm.innerHTML = `
+                <div class="text-center py-8">
+                    <div class="w-16 h-16 bg-emma-magenta bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-check text-2xl text-emma-magenta"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">¡Gracias por contactarnos!</h3>
+                    <p class="text-gray-600 mb-6">Hemos recibido tu mensaje. Nuestro equipo se pondrá en contacto contigo en breve.</p>
+                    <button type="button" class="px-6 py-3 bg-emma-magenta text-white rounded-lg font-medium hover:bg-opacity-90 transition-all" onclick="location.reload()">
+                        Enviar otro mensaje
+                    </button>
+                </div>
+            `;
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const navHeight = document.querySelector('nav').offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
